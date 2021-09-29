@@ -1,1 +1,10 @@
-{"arguments": ["-DCMAKE_EXPORT_COMPILE_COMMANDS=1", "-DCMAKE_C_COMPILER=/usr/bin/gcc", "-DCMAKE_CXX_COMPILER=/usr/bin/g++", "-G Ninja"], "currentTarget": "LiveHDCore", "buildType": "Debug"}
+{
+  "arguments": [
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
+    "-DCMAKE_C_COMPILER=/usr/bin/gcc",
+    "-DCMAKE_CXX_COMPILER=/usr/bin/g++",
+    "-G Ninja"
+  ],
+  "currentTarget": "LiveHDCore",
+  "buildType": "Debug"
+}
