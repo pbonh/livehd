@@ -35,3 +35,4 @@ coverage
 .vscode
 package-lock.json
 *build*
+neovim.json
