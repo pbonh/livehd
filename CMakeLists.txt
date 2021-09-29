@@ -59,7 +59,10 @@ include(cmake/CPM.cmake)
 # PackageProject.cmake will be used to make our target installable
 #CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.6.0")
 
-#find_package(Boost 1.77.0 COMPONENTS multiprecision)
+#find_package(Boost 1.77.0 COMPONENTS multiprecision container graph)
+#FIND_PACKAGE(Boost 1.71 COMPONENTS graph REQUIRED)
+set(BOOST_INCLUDEDIR /usr/include)
+find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 include(FetchContent)
 FetchContent_Declare(
@@ -90,87 +93,22 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 include_directories(${googletest_SOURCE_DIR}/googletest/include)
 FetchContent_Declare(
-  boost_config
-  GIT_REPOSITORY https://github.com/boostorg/config.git
-  GIT_TAG        boost-1.77.0
+  rapidjson
+  GIT_REPOSITORY https://github.com/Tencent/rapidjson.git
+  GIT_TAG        v1.1.0
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND ""
 )
-FetchContent_MakeAvailable(boost_config)
-include_directories(${boost_config_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_core
-  GIT_REPOSITORY https://github.com/boostorg/core.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_core)
-include_directories(${boost_core_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_math
-  GIT_REPOSITORY https://github.com/boostorg/math.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_math)
-include_directories(${boost_math_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_lexical_cast
-  GIT_REPOSITORY https://github.com/boostorg/lexical_cast.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_lexical_cast)
-include_directories(${boost_lexical_cast_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_range
-  GIT_REPOSITORY https://github.com/boostorg/range.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_range)
-include_directories(${boost_range_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_iterator
-  GIT_REPOSITORY https://github.com/boostorg/iterator.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_iterator)
-include_directories(${boost_iterator_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_intrusive
-  GIT_REPOSITORY https://github.com/boostorg/intrusive.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_intrusive)
-include_directories(${boost_intrusive_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_container
-  GIT_REPOSITORY https://github.com/boostorg/container.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_container)
-include_directories(${boost_container_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_assert
-  GIT_REPOSITORY https://github.com/boostorg/assert.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_assert)
-include_directories(${boost_assert_SOURCE_DIR}/include)
-FetchContent_Declare(
-  boost_multiprecision
-  GIT_REPOSITORY https://github.com/boostorg/multiprecision.git
-  GIT_TAG        boost-1.77.0
-)
-FetchContent_MakeAvailable(boost_multiprecision)
-include_directories(${boost_multiprecision_SOURCE_DIR}/include)
+FetchContent_GetProperties(rapidjson)
+if(NOT rapidjson_POPULATED)
+  FetchContent_Populate(rapidjson)
+endif()
+include_directories(${rapidjson_SOURCE_DIR}/include)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mmap_lib/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/task)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lemu)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/elab)
-
-#CPMAddPackage(
-#  NAME fmt
-#  GIT_TAG 7.1.3
-#  GITHUB_REPOSITORY fmtlib/fmt
-#  OPTIONS "FMT_INSTALL YES" # create an installable target
-#)
 
 # ---- Add source files ----
 
