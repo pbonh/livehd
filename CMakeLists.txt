@@ -59,13 +59,112 @@ include(cmake/CPM.cmake)
 # PackageProject.cmake will be used to make our target installable
 #CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.6.0")
 
-#include(FetchContent)
-#FetchContent_Declare(
-#    absl
-#    GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
-#    GIT_TAG        20210324.2
-#    )
-#FetchContent_MakeAvailable(absl)
+#find_package(Boost 1.77.0 COMPONENTS multiprecision)
+include_directories(${Boost_INCLUDE_DIRS})
+include(FetchContent)
+FetchContent_Declare(
+    absl
+    GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
+    GIT_TAG        20210324.2
+    )
+FetchContent_MakeAvailable(absl)
+include_directories(${absl_SOURCE_DIR})
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG        8.0.1
+    )
+FetchContent_MakeAvailable(fmt)
+include_directories(${fmt_SOURCE_DIR}/include)
+FetchContent_Declare(
+    iassert
+    GIT_REPOSITORY https://github.com/masc-ucsc/iassert.git
+    )
+FetchContent_MakeAvailable(iassert)
+include_directories(${iassert_SOURCE_DIR}/src)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
+)
+FetchContent_MakeAvailable(googletest)
+include_directories(${googletest_SOURCE_DIR}/googletest/include)
+FetchContent_Declare(
+  boost_config
+  GIT_REPOSITORY https://github.com/boostorg/config.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_config)
+include_directories(${boost_config_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_core
+  GIT_REPOSITORY https://github.com/boostorg/core.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_core)
+include_directories(${boost_core_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_math
+  GIT_REPOSITORY https://github.com/boostorg/math.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_math)
+include_directories(${boost_math_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_lexical_cast
+  GIT_REPOSITORY https://github.com/boostorg/lexical_cast.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_lexical_cast)
+include_directories(${boost_lexical_cast_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_range
+  GIT_REPOSITORY https://github.com/boostorg/range.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_range)
+include_directories(${boost_range_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_iterator
+  GIT_REPOSITORY https://github.com/boostorg/iterator.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_iterator)
+include_directories(${boost_iterator_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_intrusive
+  GIT_REPOSITORY https://github.com/boostorg/intrusive.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_intrusive)
+include_directories(${boost_intrusive_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_container
+  GIT_REPOSITORY https://github.com/boostorg/container.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_container)
+include_directories(${boost_container_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_assert
+  GIT_REPOSITORY https://github.com/boostorg/assert.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_assert)
+include_directories(${boost_assert_SOURCE_DIR}/include)
+FetchContent_Declare(
+  boost_multiprecision
+  GIT_REPOSITORY https://github.com/boostorg/multiprecision.git
+  GIT_TAG        boost-1.77.0
+)
+FetchContent_MakeAvailable(boost_multiprecision)
+include_directories(${boost_multiprecision_SOURCE_DIR}/include)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mmap_lib/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/task)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lemu)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/elab)
+
 #CPMAddPackage(
 #  NAME fmt
 #  GIT_TAG 7.1.3
@@ -101,9 +200,9 @@ include(cmake/CPM.cmake)
 #file(GLOB_RECURSE pass_lnastfmt_sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/pass/lnastfmt/*.cpp")
 #file(GLOB_RECURSE headers CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 #file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
-add_subdirectory(mmap_lib)
-add_subdirectory(task)
-add_subdirectory(elab)
+#add_subdirectory(mmap_lib)
+#add_subdirectory(task)
+#add_subdirectory(elab)
 add_subdirectory(core)
 
 # ---- Create library ----
