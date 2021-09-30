@@ -105,10 +105,11 @@ if(NOT rapidjson_POPULATED)
 endif()
 include_directories(${rapidjson_SOURCE_DIR}/include)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mmap_lib/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/task)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lemu)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/elab)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/mmap_lib/include)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/task)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/simlib)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lemu)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/elab)
 
 # ---- Add source files ----
 
@@ -138,9 +139,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/elab)
 #file(GLOB_RECURSE pass_lnastfmt_sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/pass/lnastfmt/*.cpp")
 #file(GLOB_RECURSE headers CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 #file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
-#add_subdirectory(mmap_lib)
-#add_subdirectory(task)
-#add_subdirectory(elab)
+add_subdirectory(mmap_lib)
+add_subdirectory(task)
+add_subdirectory(simlib)
+add_subdirectory(lemu)
+add_subdirectory(elab)
 add_subdirectory(core)
 
 # ---- Create library ----
