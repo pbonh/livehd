@@ -46,58 +46,60 @@ add_definitions(
 #-DYOSYS_ENABLE_ABC
 #-DYOSYS_ENABLE_GLOB
 
-# ---- Add boost dependency ----
-set(BOOST_INCLUDEDIR /usr/include)
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    # ---- Add boost dependency ----
+    set(BOOST_INCLUDEDIR /usr/include)
+    find_package(Boost REQUIRED)
+    include_directories(${Boost_INCLUDE_DIRS})
 
-# ---- Add dependencies via FetchContent ----
-include(FetchContent)
+    # ---- Add dependencies via FetchContent ----
+    include(FetchContent)
 
-set(ABSL_CXX_STANDARD 11)
-FetchContent_Declare(
-    absl
-    GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
-    GIT_TAG        20210324.2
+    set(ABSL_CXX_STANDARD 11)
+    FetchContent_Declare(
+        absl
+        GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
+        GIT_TAG        20210324.2
+        )
+    FetchContent_MakeAvailable(absl)
+    include_directories(${absl_SOURCE_DIR})
+
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+        GIT_TAG        8.0.1
+        )
+    FetchContent_MakeAvailable(fmt)
+    include_directories(${fmt_SOURCE_DIR}/include)
+
+    FetchContent_Declare(
+        iassert
+        GIT_REPOSITORY https://github.com/masc-ucsc/iassert.git
+        )
+    FetchContent_MakeAvailable(iassert)
+    include_directories(${iassert_SOURCE_DIR}/src)
+
+    FetchContent_Declare(
+      googletest
+      GIT_REPOSITORY https://github.com/google/googletest.git
+      GIT_TAG        master
     )
-FetchContent_MakeAvailable(absl)
-include_directories(${absl_SOURCE_DIR})
+    FetchContent_MakeAvailable(googletest)
+    include_directories(${googletest_SOURCE_DIR}/googletest/include)
 
-FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG        8.0.1
+    FetchContent_Declare(
+      rapidjson
+      GIT_REPOSITORY https://github.com/Tencent/rapidjson.git
+      GIT_TAG        v1.1.0
+      CONFIGURE_COMMAND ""
+      BUILD_COMMAND ""
     )
-FetchContent_MakeAvailable(fmt)
-include_directories(${fmt_SOURCE_DIR}/include)
-
-FetchContent_Declare(
-    iassert
-    GIT_REPOSITORY https://github.com/masc-ucsc/iassert.git
-    )
-FetchContent_MakeAvailable(iassert)
-include_directories(${iassert_SOURCE_DIR}/src)
-
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        master
-)
-FetchContent_MakeAvailable(googletest)
-include_directories(${googletest_SOURCE_DIR}/googletest/include)
-
-FetchContent_Declare(
-  rapidjson
-  GIT_REPOSITORY https://github.com/Tencent/rapidjson.git
-  GIT_TAG        v1.1.0
-  CONFIGURE_COMMAND ""
-  BUILD_COMMAND ""
-)
-FetchContent_GetProperties(rapidjson)
-if(NOT rapidjson_POPULATED)
-  FetchContent_Populate(rapidjson)
+    FetchContent_GetProperties(rapidjson)
+    if(NOT rapidjson_POPULATED)
+      FetchContent_Populate(rapidjson)
+    endif()
+    include_directories(${rapidjson_SOURCE_DIR}/include)
 endif()
-include_directories(${rapidjson_SOURCE_DIR}/include)
 
 # ---- Add project files ----
 add_subdirectory(mmap_lib)
