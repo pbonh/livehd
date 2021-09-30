@@ -80,7 +80,7 @@ void Lbench::perf_stop() {
 void Lbench::start() {
   start_time = std::chrono::system_clock::now();
   start_mem  = getValue();
-  linux.start();
+  linuxEvents.start();
 
   static bool first = true;
   if (first) {
@@ -91,7 +91,7 @@ void Lbench::start() {
 
 void Lbench::sample(const std::string &name) {
   std::vector<uint64_t> stats(4);
-  linux.sample(stats);
+  linuxEvents.sample(stats);
 
   Time_Sample s;
   s.tp          = std::chrono::system_clock::now();
@@ -150,7 +150,7 @@ void Lbench::end() {
     prev     = s.tp;
   }
   std::vector<uint64_t> stats(4);
-  linux.stop(stats);
+  linuxEvents.stop(stats);
 
   std::chrono::duration<double> t = tp - start_time;
   std::stringstream             sstr;

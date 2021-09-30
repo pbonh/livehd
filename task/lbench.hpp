@@ -25,7 +25,7 @@
 
 class Lbench {
 private:
-  LinuxEvents<PERF_TYPE_HARDWARE> linux;
+  LinuxEvents<PERF_TYPE_HARDWARE> linuxEvents;
 
   int parseLine(char *line) const {
     // This assumes that a digit will be found and the line ends in " Kb".
@@ -77,7 +77,7 @@ public:
         PERF_COUNT_HW_CACHE_REFERENCES
 #endif
     };
-    linux.setup(evts);
+    linuxEvents.setup(evts);
 
     start();
   }
@@ -87,7 +87,7 @@ public:
       return;
     end();
     perf_stop();
-    linux.close();
+    linuxEvents.close();
   }
 
   void start();
